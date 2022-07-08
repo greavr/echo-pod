@@ -36,7 +36,10 @@ def default():
     result["remote_addr"] = str(request.remote_addr)
     result["remote_user"] = str(request.remote_user)
     result["values"] = str(request.values.to_dict())
-    result["request"] = str(request)
+    envars = {}
+    for k, v in os.environ.items():
+        envars[k] = v
+    result["environment_variables"] = envars
 
     if request.content_type == 'application/json':
         result["json"] = request.json
